@@ -3,10 +3,10 @@ OneFlowTraX is a MATLAB app to analyze single-molecule data (e.g. from sptPALM),
 
 # Requirements
 
-Stand-alone version
+For the stand-alone version
 - Microsoft Windows 10 or newer, 64-bit
 
-MATLAB app
+For execution in MATLAB
 - MATLAB R2023a or newer
   - Signal Processing Toolbox 9.2
   - Image Processing Toolbox 11.7
