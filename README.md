@@ -26,6 +26,7 @@ When copying the entire folder structure and navigating to the main folder (righ
 Detailed instructions for installation and the usage of OneFlowTraX can be found in OneFlowTraX v1.0 User Guide.pdf.
 You can download sample files and a corresponding noise file from:
 https://drive.google.com/drive/folders/12FSUjpxNaUjJI9i2XCgpqXz_B-BYsNJS?usp=sharing
+There you will also find the noise file for processing data recorded with EMCCD cameras.
 
 # Copyright and Software License
 Copyright (c) SFB1101, ZMPB and IPTC, University of Tübingen, Tübingen.
