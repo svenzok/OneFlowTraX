@@ -165,7 +165,7 @@ for iCluster = 1:nClusters
 
         elseif nRegions > 2 && sum(cellfun(@numel,subPointIDs) < 5) == 1
             % Multiple larger regions are found, but one contains less than five points.
-            disp("This happens") %XXXXX
+            %disp("This happens") %XXXXX
 
         else
             % Do nothing, all found regions are valid and their separated points will be processed
@@ -179,6 +179,17 @@ for iCluster = 1:nClusters
             pointIDs = subPointIDs{iSub};
             thisVoronoiCells = voronoiCells(pointIDs);
             subBoundaryVertexArray = traceVoronoiClusters(thisVoronoiCells);
+
+            % In very seldom cases, this results in more than one traced cluster. Just discard the smaller one and
+            % look again for the points in the remaining traced cluster.
+            if numel(subBoundaryVertexArray) > 1
+                [~,maxID] = max(cellfun(@numel,subBoundaryVertexArray));
+                subBoundaryVertexArray = subBoundaryVertexArray(maxID);
+                pgon = polyshape(voronoiVertices(subBoundaryVertexArray{1},:));
+                isInside = isinterior(pgon, DT.Points(pointIDs,:));
+                pointIDs = pointIDs(isInside);
+            end
+
             clusterPointsArray{iCluster, iSub} = pointIDs;
             boundaryVertexArray(iCluster, iSub) = subBoundaryVertexArray;
         end
@@ -215,46 +226,24 @@ switch method
         % that can index into the Voronoi vertices.
 
     case 'density'
-        % SR-Tesseler estimates the cluster area by drawing a polygon around the cluster points. The
-        % publication does not describe exactly how this is done. Creating a convex hull or an alpha
-        % shape would be fastest, but to be most accurate, we can use |boundaryVertexArray| that
-        % contains the vertices of the border Voronoi cells in sorted order to go around the
-        % contained points step by step.
-
-        % Extract all edges of the thresholded Voronoi cells, connecting the last vertex of each
-        % cell back to the first. This both reduces the number edges that need to be compared and
-        % simplifies the assigment (any cluster border edge can only match one Voronoi cell).
-        allEdgesArray = cellfun(@(x) [x',circshift(x,-1)'], voronoiCells(validCellIDs), ...
-            "UniformOutput", false);
-        allEdges = cell2mat(allEdgesArray);
+        % SR-Tesseler estimates the cluster area by drawing a polygon around the cluster points. The publication does
+        % not describe exactly how this is done. We chose the MATLAB function >boundary< that allows for an encompassing
+        % polygon that neither overestimates (convex hull) or underestimates (default alpha shape) the cluster area,
+        % producing reliable results.
 
         % Pre-allocate.
-        pointBoundaryVertexArray = cell(size(boundaryVertexArray));
-
-        % XXXXX When clusters are separated, edges and their assignment to only one point sometimes
-        % fail.
+        pointBoundaryVertexArray = cell(size(clusterPointsArray));
 
         for iCluster = 1:nClusters
+           clusterPointIDs = clusterPointsArray{iCluster};
+           clusterPoints = DT.Points(clusterPointIDs,:);
 
-            % Use the sorted boundary vertices to create sorted edges. Sort the columns so that the
-            % lower index comes first.
-            boundaryVertexIDs = boundaryVertexArray{iCluster};
-            sortedOuterEdges = [boundaryVertexIDs', circshift(boundaryVertexIDs,-1)'];
-            sortedOuterEdges = sort(sortedOuterEdges,2);
+           % Create a boundary around the points, with a default shrink factor of 0.5 (this is somewhere between a
+           % convex hull and the default alpha shape).
+           k = boundary(clusterPoints);
 
-            % Find which edge of |allEdges| is the respective edge on the Voronoi border.
-            sortedAllEdges = sort(allEdges,2);
-            [~, edgeIDs] = ismember(sortedOuterEdges, sortedAllEdges, 'rows');
-
-            % Create an index vector for |allEdges| to track back which edges belong to which
-            % original Voronoi cell.
-            nEdgesPerCell = cellfun(@numel, voronoiCells(validCellIDs));
-            edgeIDList = repelem(find(validCellIDs), nEdgesPerCell);
-
-            % The IDs of the Voronoi cells can now be extracted - in the order of the edge that runs
-            % around the cluster. Use >unique< while preserving the order as one Voronoi cell might
-            % have several border edges.
-            pointBoundaryVertexArray{iCluster} = unique(edgeIDList(edgeIDs), 'stable')';
+           % Remove the doubled (closing) vertex at the end and translate into the original point IDs.
+           pointBoundaryVertexArray{iCluster} = clusterPointIDs(k(1:end-1))';
         end
 
         % Calculate the area, using |pointBoundaryVertexArray| as the indexing input for the points
