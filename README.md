@@ -35,5 +35,5 @@ Copyright (c) SFB1101, ZMPB and IPTC, University of Tübingen, Tübingen.
 The scripts of OneFlowTraX are licensed under the [GNU GPL](https://www.gnu.org/licenses/).
 
 # How to cite OneFlowTraX
-If you use any of the scripts in OneFlowTraX to process your data, please, cite our [paper](https://www.biorxiv.org/content/10.1101/2023.08.10.552827v1):
-- Leander Rohr, Alexandra Ehinger, Luiselotte Rausch, Nina Glöckner Burmeister, Alfred J. Meixner, Julien Gronnier, Klaus Harter, Birgit Kemmerling, and Sven zur Oven Krockhaus. OneFlowTraX: A User-Friendly Software for Super-Resolution Analysis of Single Molecule Dynamics and Nanoscale Organization. bioRxiv preprint DOI: [https://doi.org/10.1101/2023.08.10.552827](https://doi.org/10.1101/2023.08.10.552827)
+If you use any of the scripts in OneFlowTraX to process your data, please, cite our [paper](https://doi.org/10.3389/fpls.2024.1358935):
+- Leander Rohr, Alexandra Ehinger, Luiselotte Rausch, Nina Glöckner Burmeister, Alfred J. Meixner, Julien Gronnier, Klaus Harter, Birgit Kemmerling, and Sven zur Oven Krockhaus. OneFlowTraX: a user-friendly software for super-resolution analysis of single-molecule dynamics and nanoscale organization. DOI: [https://doi.org/10.3389/fpls.2024.1358935](https://doi.org/10.3389/fpls.2024.1358935)
