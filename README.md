@@ -7,7 +7,7 @@ For the stand-alone version
 - Microsoft Windows 10 or newer, 64-bit
 
 For execution in MATLAB
-- MATLAB R2023a or newer
+- MATLAB R2025a or newer
   - Signal Processing Toolbox 9.2
   - Image Processing Toolbox 11.7
   - Statistics and Machine Learning Toolbox 12.5
@@ -17,9 +17,9 @@ For GPU fitting (Localization step)
   - CUDA capable graphics card with minimum compute capability of 5.2
 
 # How to run
-OneFlowTraX_Installer.exe installs the stand-alone version.
+OneFlowTraX v1.3_installer.exe installs the stand-alone version.
 
-OneFlowTraX.mlappinstall installs the software as an app in MATLAB (Apps ribbon > MY APPS).
+OneFlowTraX v1.3.mltbx installs the software as an app in MATLAB (Apps ribbon > MY APPS).
 
 When copying the entire folder structure and navigating to the main folder (right-click “Add to Path” > “Selected Folders and Subfolders”) the app can be started with OneFlowTraX.mlapp.
 
