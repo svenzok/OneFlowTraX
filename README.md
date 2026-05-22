@@ -3,15 +3,17 @@ OneFlowTraX is a MATLAB app to analyze single-molecule data (e.g. from sptPALM),
 
 # Requirements
 
-For the stand-alone version
+For the stand-alone version (v1.3)
 - Microsoft Windows 10 or newer, 64-bit
+- has to use (older) MATLAB Runtime Version 2025b (R2026a seems to have some .dll dependency issues)
+- support for newer graphics cards (e.g. NVIDIA GeForce RTX 5060) only available in R2026a
 
-For execution in MATLAB
-- MATLAB R2025a or newer
-  - Signal Processing Toolbox 9.2
-  - Image Processing Toolbox 11.7
-  - Statistics and Machine Learning Toolbox 12.5
-  - MATLAB Parallel Computing Toolbox 7.8 (GPU fitting)
+For execution in MATLAB (v1.4)
+- MATLAB R2026a or newer
+  - Signal Processing Toolbox 26.1
+  - Image Processing Toolbox 26.1
+  - Statistics and Machine Learning Toolbox 26.1
+  - Parallel Computing Toolbox 26.1 (GPU fitting)
 
 For GPU fitting (Localization step)
   - CUDA capable graphics card with minimum compute capability of 5.2
@@ -19,9 +21,10 @@ For GPU fitting (Localization step)
 # How to run
 OneFlowTraX v1.3_installer.exe installs the stand-alone version.
 
-OneFlowTraX v1.3.mltbx installs the software as an app in MATLAB (Apps ribbon > MY APPS).
+OneFlowTraX v1.4.mltbx installs the software as an app in MATLAB (Apps ribbon > MY APPS).
+It will actually appear as an add-on. Open the Add-On Explorer, it should appear also here under "Installed" (and can also only be uninstalled from here). Navigate to the OneFlowTraX entry, open the options (three vertical dots), and click "Open Folder". If there are grayed out folders, right-click “Add to Path” > “Selected Folders and Subfolders”.
 
-When copying the entire folder structure and navigating to the main folder (right-click “Add to Path” > “Selected Folders and Subfolders”) the app can be started with OneFlowTraX.mlapp.
+When copying the entire folder structure and navigating to the main folder (right-click “Add to Path” > “Selected Folders and Subfolders”) the app can be started with OneFlowTraX.mlapp (version 1.4) inside MATLAB's App Designer.
 
 Detailed instructions for installation and the usage of OneFlowTraX can be found in OneFlowTraX v1.0 User Guide.pdf.
 You can download sample files and a corresponding noise file from:
