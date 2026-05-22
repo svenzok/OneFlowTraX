@@ -93,7 +93,7 @@ function trackArray = assembleTracks(locList, Options)
 % GNU placeholder
 %
 % Initial release: 2022-11-16
-% Last revision: 2022-11-17
+% Last revision: 2026-05-22
 
 %% Function argument validation
 arguments
@@ -145,10 +145,8 @@ for p = 1:numel(source)
         continue
 
     else
-        % Calculate euclidean distances, directly use the mex function
-        % (skipping the inquiries of >pdist2< for enhanced speed).
-        D = internal.stats.pdist2mex(source{p}', target{p}', ...
-            'euc', [], [], [], 1);
+        % Calculate euclidean distances.
+        D = pdist2(source{p}, target{p}, 'fasteuclidean');
         
         % Mark all distances greater than the maximal linking distance with
         % Inf to prevent linking.
@@ -221,8 +219,7 @@ if Options.maxGapClose > 0
                 
             else
                 % Calculate euclidean distances.
-                D = internal.stats.pdist2mex(source{p}', target{p+gap+1}', ...
-                    'euc', [], [], [], 1);
+                D = pdist2(source{p}, target{p+gap+1}, 'fasteuclidean');
                 
                 % Mark all distances greater than the maximal linking
                 % distance, also replace NaN with inf.
